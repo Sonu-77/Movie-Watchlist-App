@@ -31,8 +31,11 @@ function Home() {
           <input className="lg:h-[2vw] lg:w-[40vw] outline-none " type="text" placeholder="Search movie by title" />
           <button className="bg-[#f34040] lg:h-[3vw] lg:w-[7vw] p-[0.5vw] rounded text-[#f4c1c2]">Search</button>
         </div>
-        <div>
+        <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw] ">
             <Card></Card>
+
+
+
         </div>
       </div>
     </>

@@ -1,11 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import { IoIosSearch } from "react-icons/io";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { FaCheck } from "react-icons/fa";
 import Card from "./Card";
 
-
 function Home() {
+  const [query, setQuery] = useState("");
+  const [movies, setMovies] = useState([]);
+  const [error, setError] = useState(null);
+
+  const searchMovies = async () => {
+    try {
+      const response = await axios.get(
+        `https://www.omdbapi.com/?s=${query}&apikey=d7723440`
+      );
+      console.log(response);
+      console.log(response.data.Response);
+
+      if (response.data.Response === "True") {
+        setMovies(response.data.Search);
+        setError(null)
+        console.log(response.data.Search);
+      } else {
+        console.log(response.data.Error);
+        setError(response.data.Error)
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log(movies);
+
   return (
     <>
       <div className="lg:ml-[20vw] lg:w-[75vw] lg:pt-[3vw] lg:h-[100vh] ">
@@ -21,21 +48,52 @@ function Home() {
             </p>
 
             <p className="lg:text-[1vw] tracking-wide lg:h-[2vw] lg:w-[70vw] flex   items-center  ">
-              Just click the <BsBookmarkPlusFill className="ml-[0.7vw] mr-[0.7vw] text-[#f34040] " /> to add movie, the poster to
-              see more detail and <FaCheck className="ml-[0.7vw] mr-[0.7vw] text-[#6a994e] " /> to mark the movies as watched.
+              Just click the{" "}
+              <BsBookmarkPlusFill className="ml-[0.7vw] mr-[0.7vw] text-[#f34040] " />{" "}
+              to add movie, the poster to see more detail and{" "}
+              <FaCheck className="ml-[0.7vw] mr-[0.7vw] text-[#6a994e] " /> to
+              mark the movies as watched.
             </p>
           </div>
         </div>
         <div className="lg:mt-[3vw]  rounded lg:h-[3vw] lg:w-[75vw] lg:flex lg:justify-between lg:items-center gap-2  border   ">
-          <IoIosSearch className="text-[1.5vw]  lg:ml-[1vw] " />
-          <input className="lg:h-[2vw] lg:w-[40vw] outline-none " type="text" placeholder="Search movie by title" />
-          <button className="bg-[#f34040] lg:h-[3vw] lg:w-[7vw] p-[0.5vw] rounded text-[#f4c1c2]">Search</button>
+          <div className="flex justify-center items-center lg:gap-[2vw]   ">
+            <IoIosSearch className="text-[1.5vw]  lg:ml-[1vw] " />
+            <input
+              className="lg:h-[2vw] lg:w-[40vw] outline-none text-[#14213d] "
+              type="text"
+              value={query}
+              placeholder="Search movie by title"
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+          <button
+            className="bg-[#f34040] lg:h-[3vw] lg:w-[7vw] p-[0.5vw] rounded text-[#f4c1c2] hover:bg-[#e86464] hover:text-[#efeeee]"
+            onClick={searchMovies}
+          >
+            Search
+          </button>
         </div>
+       
         <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw] ">
-            <Card></Card>
+          {
+            error ?(
+              <>
+              <div className={`roboto-bold lg:w-[100%] lg:h-[10vw] bg-[#fbc4ab] lg:mt-[3vw] flex flex-col justify-center items-center text-[#335c67] rounded` }>
 
-
-
+                <p className="lg:text-[1.8vw] uppercase ">{error} </p>
+                <p className="lg:text-[1.8vw] uppercase "> Please try searching the correct Movie ....</p>
+              </div>
+              </>
+            ):(
+              
+                movies.map((movie) => {
+                    return <Card key={movie.imdbID} movie={movie}></Card>;
+                  }
+                )
+              
+            )
+          }
         </div>
       </div>
     </>

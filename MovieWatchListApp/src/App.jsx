@@ -1,5 +1,7 @@
+import { Route,Routes } from "react-router-dom"
 import Navbar from "./components/Navbar"
 import Home from "./components/Home"
+import MyList from "./components/MyList"
 
 
 function App() {
@@ -8,7 +10,14 @@ function App() {
   return (
     <>
     <Navbar></Navbar>
-    <Home></Home>
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="mylist" element={ <MyList></MyList>} />
+
+    </Routes>
+    
+
+   
     
 
     </>

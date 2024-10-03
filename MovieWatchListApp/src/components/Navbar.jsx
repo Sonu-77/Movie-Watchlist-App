@@ -1,5 +1,5 @@
-import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { BsHouse } from "react-icons/bs";
 import { FaMediumM } from "react-icons/fa";
@@ -7,6 +7,23 @@ import { FiUser } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
 
 function Navbar() {
+  const [menu,setMenu]= useState('hidden')
+
+  const navigate = useNavigate()
+
+  const userDetail =JSON.parse(localStorage.getItem("user"))
+
+  const handleMenu= ()=>{
+    setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
+
+  }
+
+  const handleLogOut = ()=>{
+    localStorage.removeItem("user")
+    setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
+    navigate("/register")
+  }
+
   return (
     <>
       <div className="lg:fixed top-0 lg:h-[100vh] lg:w-[16vw]  lg:flex lg:flex-col lg:items-center border-r-[0.03vw] rounded-r-sm  ">
@@ -55,9 +72,16 @@ function Navbar() {
           </div>
           <div className="lg:w-[10vw] relative  lg:flex lg:justify-between lg:ml-[0.4vw] lg:items-center ">
             <h2 className="roboto-medium  absolute lg:w-[7vw] lg:h-[2vw] lg:flex  items-center  text-[#676666] tracking-wide lg:text-[0.8vw] overflow-hidden   ">
-              Guest
+
+              
+              
             </h2>
-            <BsThreeDots className=" absolute right-0" />
+            <BsThreeDots className=" absolute right-0" onClick={handleMenu} />
+          </div>
+          <div className= {`absolute lg:w-[5vw] ${menu} lg:h-[3vw] bg-slate-400 lg:bottom-[2.7vw] lg:right-0 flex flex-col justify-center items-center`}  >
+            <h4 onClick={handleLogOut}>LogOut</h4>
+            
+
           </div>
         </div>
       </div>

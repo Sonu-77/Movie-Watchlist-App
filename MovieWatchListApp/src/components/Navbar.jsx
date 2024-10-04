@@ -1,27 +1,49 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { BsHouse } from "react-icons/bs";
 import { FaMediumM } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
+import Login from "./Login";
 
 function Navbar() {
   const [menu,setMenu]= useState('hidden')
+  const [userName,setUserName]=useState()
 
   const navigate = useNavigate()
 
-  const userDetail =JSON.parse(localStorage.getItem("user"))
+ 
+  useEffect(() => {
+    const checkLoggedIn = JSON.parse(localStorage.getItem("loggedIn"));
+  
+    if (checkLoggedIn === true) {
+      const userDetail = JSON.parse(localStorage.getItem("user"));
+      setUserName(userDetail.name);
+
+
+      
+      console.log("checkLoggedIn",checkLoggedIn);
+      
+    }
+  }, []);
+
+  
+
+  // console.log("user",userName);
+  
 
   const handleMenu= ()=>{
     setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
 
   }
 
+  
   const handleLogOut = ()=>{
-    localStorage.removeItem("user")
+    localStorage.removeItem("loggedIn")
     setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
-    navigate("/register")
+    setUserName(null)
+    navigate("/login")
   }
 
   return (
@@ -73,13 +95,22 @@ function Navbar() {
           <div className="lg:w-[10vw] relative  lg:flex lg:justify-between lg:ml-[0.4vw] lg:items-center ">
             <h2 className="roboto-medium  absolute lg:w-[7vw] lg:h-[2vw] lg:flex  items-center  text-[#676666] tracking-wide lg:text-[0.8vw] overflow-hidden   ">
 
-              
+             
+              { userName ? userName : "Guest" }
+
+             
               
             </h2>
             <BsThreeDots className=" absolute right-0" onClick={handleMenu} />
           </div>
           <div className= {`absolute lg:w-[5vw] ${menu} lg:h-[3vw] bg-slate-400 lg:bottom-[2.7vw] lg:right-0 flex flex-col justify-center items-center`}  >
-            <h4 onClick={handleLogOut}>LogOut</h4>
+            <h4 onClick={handleLogOut}>
+              {userName ? (
+                <NavLink to={"/login"}>LogOut</NavLink>
+                
+              ) : "LogIn"}
+            </h4>
+            
             
 
           </div>

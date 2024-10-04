@@ -17,11 +17,14 @@ function Login() {
 
     const loggedUser = JSON.parse(localStorage.getItem("user"))
     if(input.email===loggedUser.email && input.password===loggedUser.password){
+      localStorage.setItem("loggedIn",JSON.stringify(true))
         navigate("/")
     }else{
         alert("u have entered wrong password")
     }
   }
+
+  
 
   
 

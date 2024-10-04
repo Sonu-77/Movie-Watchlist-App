@@ -1,32 +1,38 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Login.css";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function Login() {
   const [input, setInput] = useState({
-    email:"",
-    password:""
-    
+    email: "",
+    password: "",
   });
 
-  const navigate = useNavigate()
+  const { setUserData } = useContext(UserContext);
 
-  const handleSubmit=(e)=>{
-    e.preventDefault()
+  const navigate = useNavigate();
 
-    const loggedUser = JSON.parse(localStorage.getItem("user"))
-    if(input.email===loggedUser.email && input.password===loggedUser.password){
-      localStorage.setItem("loggedIn",JSON.stringify(true))
-        navigate("/")
-    }else{
-        alert("u have entered wrong password")
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const loggedUser = JSON.parse(localStorage.getItem("user"));
+    if (
+      input.email === loggedUser.email &&
+      input.password === loggedUser.password
+    ) {
+      setUserData({
+        name: loggedUser.name,
+        email: loggedUser.email,
+        loggedIn: true,
+      });
+      localStorage.setItem("loggedIn", JSON.stringify(true)); // Ensure loggedIn is stored
+      navigate("/");
+    } else {
+      alert("u have entered wrong password");
     }
-  }
-
-  
-
-  
+  };
 
   return (
     <>
@@ -37,19 +43,22 @@ function Login() {
           </h3>
         </div>
         <div>
-          <form className="sm:flex sm:w-[90vw] lg:w-[30vw]  sm:flex-col sm:justify-center sm:items-center sm:gap-[4vw] lg:gap-[1.5vw]"
+          <form
+            className="sm:flex sm:w-[90vw] lg:w-[30vw]  sm:flex-col sm:justify-center sm:items-center sm:gap-[4vw] lg:gap-[1.5vw]"
             onSubmit={handleSubmit}
           >
-            
             <input
               className="custom-shadow lg:h-[3.5vw]  sm:w-full sm:h-[12vw] sm:pl-[4vw] lg:pl-[1vw] placeholder:sm:text-[#000000] sm:placeholder:pl-[2vw] lg:placeholder:pl-[0.01vw]  outline-none"
               required
               type="email"
               name="email"
               value={input.email}
-              onChange={(e)=>setInput({
-                ...input,[e.target.name]:e.target.value
-              })}
+              onChange={(e) =>
+                setInput({
+                  ...input,
+                  [e.target.name]: e.target.value,
+                })
+              }
               placeholder="Email"
             />
             <input
@@ -57,10 +66,13 @@ function Login() {
               required
               type="password"
               name="password"
-              value={input.name}
-              onChange={(e)=>setInput({
-                ...input,[e.target.name]:e.target.value
-              })}
+              value={input.password}
+              onChange={(e) =>
+                setInput({
+                  ...input,
+                  [e.target.name]: e.target.value,
+                })
+              }
               placeholder="Password"
             />
 

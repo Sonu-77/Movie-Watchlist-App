@@ -1,50 +1,37 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { IoIosSearch } from "react-icons/io";
 import { BsHouse } from "react-icons/bs";
 import { FaMediumM } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
-import Login from "./Login";
+import { UserContext } from "../context/UserContext";
 
 function Navbar() {
-  const [menu,setMenu]= useState('hidden')
-  const [userName,setUserName]=useState()
+  const [menu, setMenu] = useState("hidden");
 
-  const navigate = useNavigate()
+  const { userData, setUserData } = useContext(UserContext);
 
- 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const checkLoggedIn = JSON.parse(localStorage.getItem("loggedIn"));
-  
     if (checkLoggedIn === true) {
       const userDetail = JSON.parse(localStorage.getItem("user"));
-      setUserName(userDetail.name);
-
-
-      
-      console.log("checkLoggedIn",checkLoggedIn);
-      
+      setUserData({ ...userDetail, loggedIn: true });
     }
-  }, []);
+  }, [setUserData]);
 
-  
+  const handleMenu = () => {
+    setMenu((previous) => (previous === "hidden" ? "flex" : "hidden"));
+  };
 
-  // console.log("user",userName);
-  
-
-  const handleMenu= ()=>{
-    setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
-
-  }
-
-  
-  const handleLogOut = ()=>{
-    localStorage.removeItem("loggedIn")
-    setMenu((previous)=>(previous=="hidden"? "flex":"hidden"))
-    setUserName(null)
-    navigate("/login")
-  }
+  const handleLogOut = () => {
+    localStorage.setItem("loggedIn", JSON.stringify(false)); 
+    setUserData({ ...userData, loggedIn: false }); 
+    setMenu((previous) => (previous === "hidden" ? "flex" : "hidden"));
+    navigate("/login");
+  };
 
   return (
     <>
@@ -93,26 +80,21 @@ function Navbar() {
             <FiUser className="text-[1.2vw]" />
           </div>
           <div className="lg:w-[10vw] relative  lg:flex lg:justify-between lg:ml-[0.4vw] lg:items-center ">
-            <h2 className="roboto-medium  absolute lg:w-[7vw] lg:h-[2vw] lg:flex  items-center  text-[#676666] tracking-wide lg:text-[0.8vw] overflow-hidden   ">
-
-             
-              { userName ? userName : "Guest" }
-
-             
-              
+            <h2 className="roboto-medium  absolute lg:w-[7vw] lg:h-[2vw] lg:flex  items-center  text-[#5e5555] tracking-wide lg:text-[0.8vw] overflow-hidden  capitalize   ">
+              {userData.loggedIn === true ? userData.name : "Guest"}
             </h2>
             <BsThreeDots className=" absolute right-0" onClick={handleMenu} />
           </div>
-          <div className= {`absolute lg:w-[5vw] ${menu} lg:h-[3vw] bg-slate-400 lg:bottom-[2.7vw] lg:right-0 flex flex-col justify-center items-center`}  >
+          <div
+            className={`absolute roboto-bold lg:min-w-[5vw] ${menu} lg:h-[3vw] rounded-md bg-[#cacfd2] lg:bottom-[2.7vw] lg:right-0 flex flex-col justify-center items-center uppercase`}
+          >
             <h4 onClick={handleLogOut}>
-              {userName ? (
-                <NavLink to={"/login"}>LogOut</NavLink>
-                
-              ) : "LogIn"}
+              {userData.loggedIn === true ? (
+                "Logout"
+              ) : (
+                <NavLink to={"/login"}>Login</NavLink>
+              )}
             </h4>
-            
-            
-
           </div>
         </div>
       </div>

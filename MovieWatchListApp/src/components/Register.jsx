@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState,useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../context/UserContext";
 
 function Register() {
 
@@ -10,13 +11,22 @@ function Register() {
         password:""
     })
 
+    const {setUserData}=useContext(UserContext)
+
     const navigate = useNavigate()
 
 
     const handleSubmit= (e)=>{
         e.preventDefault()
+
+        setUserData({
+          name: input.name,
+          email: input.email,
+          loggedIn: true
+      });
         
         localStorage.setItem("user",JSON.stringify(input))
+
         navigate("/login")
 
     }

@@ -9,18 +9,7 @@ function Card({ movie }) {
 
   const {addBookmark,getBookmark}=  useContext(BookmarkContext)
 
-
-
-  // const handleBookmark = ()=>{
-
-  //   addBookmark(movie)
-  //   setbookmarkToggle("#f34040")
-  //   localStorage.setItem("bookmarks",JSON.stringify(movie))
-  //   console.log("movies",getBookmark);
-    
-
   
-  // }
   const handleBookmark = () => {
     addBookmark(movie);
     setbookmarkToggle("#f34040");

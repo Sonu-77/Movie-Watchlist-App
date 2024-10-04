@@ -22,7 +22,7 @@ function Register() {
         setUserData({
           name: input.name,
           email: input.email,
-          loggedIn: true
+          loggedIn: false
       });
         
         localStorage.setItem("user",JSON.stringify(input))

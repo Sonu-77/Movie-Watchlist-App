@@ -14,8 +14,7 @@ function MyListCard({movie}) {
 
   return (
     <>
-      {getBookmark.map((movie) => {
-        return (
+      
           <div key={movie.imdbID} className="relative lg:min-h-[27vw] lg:w-[14vw] rounded shadow-xl lg:mb-[1vw] ">
             <div className="lg:h-[18vw] lg:w-[100%] rounded relative ">
               <FaCheck className="absolute lg:right-[1vw] lg:top-[1vw]   text-[#7ef838] lg:text-[1.9vw] hover:text-[#8b8686] " />
@@ -41,8 +40,7 @@ function MyListCard({movie}) {
               <h3 onClick={handleRemove}>Remove</h3>
             </div>
           </div>
-        );
-      })}
+
     </>
   );
 }

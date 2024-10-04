@@ -6,11 +6,14 @@ import { FaMediumM } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
 import { UserContext } from "../context/UserContext";
+import { BookmarkContext } from "../context/BookmarkContext";
 
 function Navbar() {
   const [menu, setMenu] = useState("hidden");
 
   const { userData, setUserData } = useContext(UserContext);
+
+  const {getBookmark}=useContext(BookmarkContext)
 
   const navigate = useNavigate();
 
@@ -62,20 +65,37 @@ function Navbar() {
           <h3 className="poppins-regular lg:text-[1vw] tracking-wide lg:pl-[1vw] ">
             My Lists
           </h3>
-          <div className="lg:w-[13vw] lg:h-[30vw]">
-            <NavLink to="mylist">
-              <div className="lg:w-[12vw] lg:h-[2.1vw] border lg:mt-[1vw]  lg:flex lg:justify-start lg:pl-[0.7vw] lg:ml-[0.5vw] lg:items-center lg:gap-2 rounded text-[#ffffff] ">
-                <div className="lg:h-[1.5vw] lg:w-[1.5vw] bg-black text-[#ffffff] lg:text-[01vw] lg:flex  justify-center items-center ">
-                  <FaMediumM />
+          <div className="lg:w-[13vw] lg:max-h-[30vw] overflow-y-auto">
+            {
+              userData.loggedIn===true?(
+
+                getBookmark.map((movie)=>{
+                  console.log(getBookmark);
+
+                  return(
+  
+                        <NavLink key={movie.imdbID} to="mylist">
+                          <div className="lg:w-[12vw] lg:h-[2.1vw] border lg:mt-[1vw]  lg:flex lg:justify-start lg:pl-[0.7vw] lg:ml-[0.5vw] lg:items-center lg:gap-2 rounded text-[#ffffff] ">
+                            <div className="lg:h-[1.5vw] lg:w-[1.5vw] bg-black text-[#ffffff] lg:text-[01vw] lg:flex  justify-center items-center ">
+                              <FaMediumM />
+                            </div>
+                            <h4 className="roboto-medium lg:text-[0.7vw] tracking-wide text-[#534e4e] truncate">
+                              {movie.Title}
+                            </h4>
+                          </div>
+                        </NavLink>
+                  )
+                })
+              ):(
+                <div className="lg:w-[13vw] lg:mt-[10vw] lg:h-[2vw] bg-[#caf0f8] flex justify-center items-center lg:p-[0.5vw] shadow-lg  ">
+                  <h3 className="lg:text-[1vw] text-[#38a3a5] tracking-wide ">login in to see watchlist...</h3>
                 </div>
-                <h4 className="roboto-medium lg:text-[0.7vw] tracking-wide text-[#534e4e]">
-                  Movie by Tom Cruise
-                </h4>
-              </div>
-            </NavLink>
+              )
+
+            }
           </div>
         </div>
-        <div className="lg:fixed lg:bottom-[1.5vw] lg:mt-[1vw] lg:w-[13vw] lg:h-[2.5vw] border   lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center  rounded  text-[#000000]  ">
+        <div className="lg:fixed z-20 lg:bottom-[1.5vw] lg:mt-[1vw] lg:w-[13vw] lg:h-[2.5vw] border   lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center  rounded  text-[#000000]   ">
           <div className="lg:h-[1.8vw] lg:w-[1.8vw] flex justify-center items-center rounded-full border-[#000000] bg-[#e0e1dd] lg:border-[0.1vw] object-cover overflow-hidden">
             <FiUser className="text-[1.2vw]" />
           </div>

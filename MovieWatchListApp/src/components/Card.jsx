@@ -11,17 +11,22 @@ function Card({ movie }) {
 
 
 
-  const handleBookmark = ()=>{
+  // const handleBookmark = ()=>{
 
-    addBookmark(movie)
-    setbookmarkToggle("#f34040")
-    localStorage.setItem("movie",JSON.stringify(movie))
+  //   addBookmark(movie)
+  //   setbookmarkToggle("#f34040")
+  //   localStorage.setItem("bookmarks",JSON.stringify(movie))
+  //   console.log("movies",getBookmark);
+    
+
   
-  }
+  // }
+  const handleBookmark = () => {
+    addBookmark(movie);
+    setbookmarkToggle("#f34040");
+  };
 
-  useEffect(() => {
-    console.log("Updated Bookmark List:", getBookmark);
-  }, [getBookmark]);
+  
  
   
 
@@ -30,7 +35,7 @@ function Card({ movie }) {
     <>
       <div className="lg:min-h-[27vw] lg:w-[14vw] rounded shadow-xl lg:mb-[1vw] ">
         <div className="lg:h-[18vw] lg:w-[100%] rounded relative ">
-          <BsBookmarkPlusFill onClick={handleBookmark} className={`absolute lg:-left-[0.3vw]  text-[${bookmarkToggle}] lg:text-[2vw]`}  />
+          <BsBookmarkPlusFill onClick={handleBookmark} className={`absolute lg:-left-[0.3vw]  ${bookmarkToggle === "#f34040" ? "text-[#f34040]" : "text-[#0d1b2]"} lg:text-[2vw]`}  />
           <img
             className="object-cover lg:h-[18vw] lg:w-[100%] rounded  "
             src={movie.Poster}

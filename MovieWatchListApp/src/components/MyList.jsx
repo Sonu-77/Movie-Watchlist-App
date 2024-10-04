@@ -23,7 +23,7 @@ function MyList() {
         </div>
         <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw]">
           {
-            getBookmark.lenght>0?(
+            getBookmark.length>0?(
               getBookmark.map((movie) => (
                 <MyListCard key={movie.imdbID} movie={movie} />
               ))

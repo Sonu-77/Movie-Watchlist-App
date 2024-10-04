@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState,useContext,useEffect } from "react";
 import { BsBookmarkPlusFill } from "react-icons/bs";
 import { FaSmile } from "react-icons/fa";
 import { BiSolidCool } from "react-icons/bi";
+import { BookmarkContext } from "../context/BookmarkContext";
 
 function Card({ movie }) {
+  const [bookmarkToggle,setbookmarkToggle] = useState("#0d1b2")
+
+  const {addBookmark,getBookmark}=  useContext(BookmarkContext)
+
+
+
+  const handleBookmark = ()=>{
+
+    addBookmark(movie)
+    setbookmarkToggle("#f34040")
+    localStorage.setItem("movie",JSON.stringify(movie))
+  
+  }
+
+  useEffect(() => {
+    console.log("Updated Bookmark List:", getBookmark);
+  }, [getBookmark]);
+ 
+  
+
+
   return (
     <>
       <div className="lg:min-h-[27vw] lg:w-[14vw] rounded shadow-xl lg:mb-[1vw] ">
         <div className="lg:h-[18vw] lg:w-[100%] rounded relative ">
-          <BsBookmarkPlusFill className="absolute lg:-left-[0.3vw]  text-[#f34040] lg:text-[2vw] hover:text-[#8b8686] " />
+          <BsBookmarkPlusFill onClick={handleBookmark} className={`absolute lg:-left-[0.3vw]  text-[${bookmarkToggle}] lg:text-[2vw]`}  />
           <img
             className="object-cover lg:h-[18vw] lg:w-[100%] rounded  "
             src={movie.Poster}

@@ -1,8 +1,13 @@
-import React from 'react'
+import React,{useContext} from 'react'
 import { BiEdit } from "react-icons/bi";
 import MyListCard from './MyListCard';
+import { BookmarkContext } from '../context/BookmarkContext';
+
 
 function MyList() {
+ 
+  const {getBookmark}= useContext(BookmarkContext)
+
   return (
     <>
     <div className="lg:ml-[20vw] lg:w-[75vw] lg:pt-[3vw] lg:h-[100vh] ">
@@ -17,7 +22,19 @@ function MyList() {
             </div>
         </div>
         <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw]">
-        <MyListCard/>
+          {
+            getBookmark.lenght>0?(
+              getBookmark.map((movie) => (
+                <MyListCard key={movie.imdbID} movie={movie} />
+              ))
+            ):(
+              <div className='lg:h-[10vw] lg:w-[50vw] rounded-md bg-[#ef6974] text-[#ffffff] flex justify-center items-center text-[2vw] lg:mt-[10vw] lg:ml-[10vw]  '>
+                <h2 className='tracking-wider'>Try Adding Movies to Watchlist.... </h2>
+
+              </div>
+            )
+          }
+        
         </div>
     </div>
     </>

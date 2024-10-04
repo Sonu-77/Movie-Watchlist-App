@@ -15,13 +15,12 @@ function Home() {
       const response = await axios.get(
         `https://www.omdbapi.com/?s=${query}&apikey=d7723440`
       );
-      console.log(response);
-      console.log(response.data.Response);
+      
 
       if (response.data.Response === "True") {
         setMovies(response.data.Search);
         setError(null)
-        console.log(response.data.Search);
+        
       } else {
         console.log(response.data.Error);
         setError(response.data.Error)
@@ -31,7 +30,7 @@ function Home() {
     }
   };
 
-  console.log(movies);
+
 
   return (
     <>

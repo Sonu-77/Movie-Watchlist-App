@@ -10,27 +10,48 @@ function Login() {
     password: "",
   });
 
-  const { setUserData } = useContext(UserContext);
+  const { setUserData, setlistofUsers, listofUsers } = useContext(UserContext);
 
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const loggedUser = JSON.parse(localStorage.getItem("user"));
-    if (
-      input.email === loggedUser.email &&
-      input.password === loggedUser.password
-    ) {
-      setUserData({
-        name: loggedUser.name,
-        email: loggedUser.email,
-        loggedIn: true,
-      });
-      localStorage.setItem("loggedIn", JSON.stringify(true)); // Ensure loggedIn is stored
-      navigate("/");
+    const registerUser = JSON.parse(localStorage.getItem("listofusers")) || [];
+
+    const userExistinregisterUser = registerUser.find(
+      (user) => user.email === input.email
+    );
+
+    if (userExistinregisterUser) {
+      if (input.password === userExistinregisterUser.password) {
+        setUserData({
+          name: userExistinregisterUser.name,
+          email: userExistinregisterUser.email,
+          loggedIn: true,
+        });
+
+        const updateLogin = registerUser.map((user) => {
+          if (user.email === userExistinregisterUser.email) {
+            return { ...user, loggedIn: true };
+          } else {
+            return { ...user, loggedIn: false };
+          }
+        });
+
+        setlistofUsers(updateLogin);
+
+        localStorage.setItem("listofusers", JSON.stringify(updateLogin));
+
+        localStorage.setItem("loggedIn", JSON.stringify(true));
+
+        navigate("/");
+      } else {
+        alert("u have entered wrong password");
+      }
     } else {
-      alert("u have entered wrong password");
+      alert("User does not Exist, Please Register to Login ...");
+      navigate("/register");
     }
   };
 

@@ -1,36 +1,60 @@
-import React, { useState,useContext } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { UserContext } from "../context/UserContext";
 
 function Register() {
+  const [input, setInput] = useState({
+    name: "",
+    email: "",
+    password: ""
+  });
 
-    const [input,setInput]=useState({
-        name:"",
-        email:"",
-        password:""
-    })
+  const { setUserData, setlistofUsers, listofUsers } = useContext(UserContext);
 
-    const {setUserData}=useContext(UserContext)
+  const navigate = useNavigate();
 
-    const navigate = useNavigate()
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
+    const storeUserList = JSON.parse(localStorage.getItem("listofusers")) || [];
 
-    const handleSubmit= (e)=>{
-        e.preventDefault()
+    const existedUser = storeUserList.find(
+      (user) => user.email === input.email
+    );
 
-        setUserData({
-          name: input.name,
-          email: input.email,
-          loggedIn: false
+    if (!existedUser) {
+      const newUser = {
+        name: input.name,
+        email: input.email,
+        password: input.password,
+        loggedIn: false,
+        watchlist: [],
+      };
+
+      const updateUsertoStore = [...storeUserList, newUser];
+
+      localStorage.setItem("listofusers", JSON.stringify(updateUsertoStore));
+
+      setUserData({
+        name: input.name,
+        email: input.email,
+        password: input.password,
+        loggedIn: false,
+        watchlist: [],
       });
-        
-        localStorage.setItem("user",JSON.stringify(input))
 
-        navigate("/login")
+      setlistofUsers(updateUsertoStore);
 
+      localStorage.setItem("user", JSON.stringify(input));
+
+      navigate("/login");
+    } else {
+      alert("User Already Existed, Try login In...");
     }
+  };
 
+  console.log("list of user", listofUsers);
 
   return (
     <>
@@ -41,7 +65,8 @@ function Register() {
           </h3>
         </div>
         <div>
-          <form className="sm:flex sm:w-[90vw] lg:w-[30vw]  sm:flex-col sm:justify-center sm:items-center sm:gap-[4vw] lg:gap-[1.5vw]"
+          <form
+            className="sm:flex sm:w-[90vw] lg:w-[30vw]  sm:flex-col sm:justify-center sm:items-center sm:gap-[4vw] lg:gap-[1.5vw]"
             onSubmit={handleSubmit}
           >
             <input
@@ -50,9 +75,12 @@ function Register() {
               type="text"
               name="name"
               value={input.name}
-              onChange={(e)=>setInput({
-                ...input,[e.target.name]:e.target.value
-              })}
+              onChange={(e) =>
+                setInput({
+                  ...input,
+                  [e.target.name]: e.target.value,
+                })
+              }
               placeholder="UserName"
             />
 
@@ -62,9 +90,12 @@ function Register() {
               type="email"
               name="email"
               value={input.email}
-              onChange={(e)=>setInput({
-                ...input,[e.target.name]:e.target.value
-              })}
+              onChange={(e) =>
+                setInput({
+                  ...input,
+                  [e.target.name]: e.target.value,
+                })
+              }
               placeholder="Email"
             />
             <input
@@ -73,9 +104,12 @@ function Register() {
               type="password"
               name="password"
               value={input.password}
-              onChange={(e)=>setInput({
-                ...input,[e.target.name]:e.target.value
-              })}
+              onChange={(e) =>
+                setInput({
+                  ...input,
+                  [e.target.name]: e.target.value,
+                })
+              }
               placeholder="Password"
             />
 

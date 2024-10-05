@@ -6,11 +6,17 @@ export const UserProvider = ({children})=>{
     const [userData,setUserData] = useState({
         name:"",
         email:"",
-        loggedIn:false
+        password:"",
+        loggedIn:false,
+        watchlist:[]
     })
 
+    const [listofUsers, setlistofUsers] =useState(
+        localStorage.getItem("listofusers") || []
+    )
+
     return(
-        <UserContext.Provider value={{userData,setUserData}}>
+        <UserContext.Provider value={{userData,setUserData,setlistofUsers,listofUsers}}>
             {children}
         </UserContext.Provider>
     )

@@ -2,11 +2,15 @@ import React,{useContext} from 'react'
 import { BiEdit } from "react-icons/bi";
 import MyListCard from './MyListCard';
 import { BookmarkContext } from '../context/BookmarkContext';
+import { UserContext } from '../context/UserContext';
+import { json } from 'react-router-dom';
 
 
 function MyList() {
  
   const {getBookmark}= useContext(BookmarkContext)
+
+
 
   return (
     <>

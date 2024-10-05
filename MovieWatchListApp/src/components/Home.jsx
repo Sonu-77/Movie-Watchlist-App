@@ -15,22 +15,18 @@ function Home() {
       const response = await axios.get(
         `https://www.omdbapi.com/?s=${query}&apikey=d7723440`
       );
-      
 
       if (response.data.Response === "True") {
         setMovies(response.data.Search);
-        setError(null)
-        
+        setError(null);
       } else {
         console.log(response.data.Error);
-        setError(response.data.Error)
+        setError(response.data.Error);
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-
 
   return (
     <>
@@ -73,26 +69,25 @@ function Home() {
             Search
           </button>
         </div>
-       
-        <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw] ">
-          {
-            error ?(
-              <>
-              <div className={`roboto-bold lg:w-[100%] lg:h-[10vw] bg-[#fbc4ab] lg:mt-[3vw] flex flex-col justify-center items-center text-[#335c67] rounded` }>
 
+        <div className="lg:mt-[2vw] flex  flex-wrap lg:gap-[1.24vw] lg:w-[75vw] lg:min-h-[25vw] ">
+          {error ? (
+            <>
+              <div
+                className={`roboto-bold lg:w-[100%] lg:h-[10vw] bg-[#fbc4ab] lg:mt-[3vw] flex flex-col justify-center items-center text-[#335c67] rounded`}
+              >
                 <p className="lg:text-[1.8vw] uppercase ">{error} </p>
-                <p className="lg:text-[1.8vw] uppercase "> Please try searching the correct Movie ....</p>
+                <p className="lg:text-[1.8vw] uppercase ">
+                  {" "}
+                  Please try searching the correct Movie ....
+                </p>
               </div>
-              </>
-            ):(
-              
-                movies.map((movie) => {
-                    return <Card key={movie.imdbID} movie={movie}></Card>;
-                  }
-                )
-              
-            )
-          }
+            </>
+          ) : (
+            movies.map((movie) => {
+              return <Card key={movie.imdbID} movie={movie}></Card>;
+            })
+          )}
         </div>
       </div>
     </>

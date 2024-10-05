@@ -1,38 +1,49 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
+import { UserContext } from "./UserContext";
 
 export const BookmarkContext = createContext();
 
 export const BookmarkProvider = ({ children }) => {
-  const [getBookmark, setGetBookmark] = useState(() => {
-    const savedBookmark = localStorage.getItem("bookmarks");
-    try {
-      return savedBookmark ? JSON.parse(savedBookmark) : [];
-    } catch (error) {
-      console.error("Failed to parse bookmarks from localStorage:", error);
-      return [];
-    }
-  });
+  const { userData } = useContext(UserContext);
+
+  const [getBookmark, setGetBookmark] = useState([]);
 
   useEffect(() => {
-    if (getBookmark.length > 0) {
-      localStorage.setItem("bookmarks", JSON.stringify(getBookmark));
+    if (userData && userData.email) {
+      const storedUsers = JSON.parse(localStorage.getItem("listofusers")) || [];
+      const currentUser = storedUsers.find(
+        (user) => user.email === userData.email
+      );
+
+      if (currentUser && currentUser.watchlist) {
+        setGetBookmark(currentUser.watchlist);
+      } else {
+        setGetBookmark([]);
+      }
     }
-  }, [getBookmark]);
+  }, [userData]);
+
+  useEffect(() => {
+    if (userData && userData.email) {
+      const storedUsers = JSON.parse(localStorage.getItem("listofusers")) || [];
+      const updatedUsers = storedUsers.map((user) => {
+        if (user.email === userData.email) {
+          return { ...user, watchlist: getBookmark };
+        }
+        return user;
+      });
+      localStorage.setItem("listofusers", JSON.stringify(updatedUsers));
+    }
+  }, [getBookmark, userData]);
 
   const addBookmark = (movie) => {
-    const isBookmarked = getBookmark.some((m) => m.imdbID === movie.imdbID);
-
-    if (!isBookmarked) {
-      const updatedBookmarks = [...getBookmark, movie];
-      setGetBookmark(updatedBookmarks);
-      // Removed redundant localStorage.setItem
+    if (!getBookmark.some((m) => m.imdbID === movie.imdbID)) {
+      setGetBookmark([...getBookmark, movie]);
     }
   };
 
   const removeBookmark = (imdbID) => {
-    const updatedBookmarks = getBookmark.filter((movie) => movie.imdbID !== imdbID);
-    setGetBookmark(updatedBookmarks);
-    // localStorage is handled by useEffect
+    setGetBookmark(getBookmark.filter((movie) => movie.imdbID !== imdbID));
   };
 
   return (
@@ -43,4 +54,3 @@ export const BookmarkProvider = ({ children }) => {
     </BookmarkContext.Provider>
   );
 };
-

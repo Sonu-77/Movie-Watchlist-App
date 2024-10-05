@@ -7,9 +7,14 @@ import { FiUser } from "react-icons/fi";
 import { BsThreeDots } from "react-icons/bs";
 import { UserContext } from "../context/UserContext";
 import { BookmarkContext } from "../context/BookmarkContext";
+import { HiMiniUserCircle } from "react-icons/hi2";
+import { IoClose } from "react-icons/io5";
 
 function Navbar() {
-  const [menu, setMenu] = useState("hidden");
+  const [menu, setMenu] = useState("hidden"); //logout login
+  const [profileShow, setprofileShow] = useState(false); //mobile device profile show
+  const [crossmenuIcon, setcrossMenuIcon] = useState("hidden"); //to close profile
+  const [menuIcon, setMenuIcon] = useState("flex"); //when click to show the profile
 
   const { userData, setUserData, setlistofUsers } = useContext(UserContext);
 
@@ -50,15 +55,27 @@ function Navbar() {
     navigate("/login");
   };
 
+  const toogleMenu = () => {
+    if (menushow == false) {
+      return (
+        setprofileShow(true), setcrossMenuIcon("flex"), setMenuIcon("hidden")
+      );
+    } else {
+      return (
+        setprofileShow(false), setcrossMenuIcon("hidden"), setMenuIcon("flex")
+      );
+    }
+  };
+
   return (
     <>
-      <div className="lg:fixed top-0 lg:h-[100vh] lg:w-[16vw]  lg:flex lg:flex-col lg:items-center border-r-[0.03vw] rounded-r-sm  ">
-        <div className="lg:h-[3vw] lg:w-[12vw] lg:flex lg:justify-center lg:items-center ">
-          <h1 className="lg:text-[2vw] noto-sans-font text-[#f34040] ">
+      <div className="fixed z-30 bg-white  shadow-lg lg:shadow-none top-0 lg:h-[100vh] lg:w-[16vw] flex lg:flex-col  lg:items-center  border-r-[0.03vw] rounded-r-sm   ">
+        <div className="lg:h-[3vw] lg:w-[12vw] h-[15vw] w-[80vw]   flex lg:justify-center justify-start items-center ">
+          <h1 className="lg:text-[2vw] text-[7vw] lg:ml-0 ml-[4vw]   tracking-wide noto-sans-font text-[#f34040] ">
             WatchLists
           </h1>
         </div>
-        <div className="lg:w-[12vw] lg:h-[1.5vw]  text-[#cbcaca] lg:border-[0.06vw]   lg:flex lg:mt-[0.7vw] lg:justify-center lg:items-center lg:gap-2 rounded ">
+        <div className="lg:w-[12vw] hidden lg:h-[1.5vw]  text-[#cbcaca] lg:border-[0.06vw]   lg:flex lg:mt-[0.7vw] lg:justify-center lg:items-center lg:gap-2 rounded ">
           <IoIosSearch className="lg:text-[1vw] " />
           <input
             className=" placeholder:text-[0.8vw] outline-none bg-transparent lg:ml-[0.3vw] lg:w-[9vw] lg:h-[1.2vw] "
@@ -67,7 +84,7 @@ function Navbar() {
           />
         </div>
         <NavLink to="/">
-          <div className=" lg:w-[12vw] lg:h-[2vw] bg-[#f34040] lg:mt-[2vw]  lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center lg:gap-2 rounded text-[#ffffff]   ">
+          <div className=" lg:w-[12vw] lg:h-[2vw] bg-[#f34040] lg:mt-[2vw] hidden lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center lg:gap-2 rounded text-[#ffffff]   ">
             <BsHouse className="lg:text-[0.9vw] " />
             <h3 className=" roboto-regular lg:text-[0.8vw] lg:tracking-wide lg:ml-[0.3vw] ">
               Home
@@ -75,7 +92,7 @@ function Navbar() {
           </div>
         </NavLink>
         <div className="lg:w-[13vw] lg:h-[0.05vw] bg-[#eae2e2] lg:mt-[1vw] lg:mb-[1vw] "></div>
-        <div className="lg:w-[13vw] lg:h-[33vw]  lg:flex lg:flex-col  ">
+        <div className="lg:w-[13vw] lg:h-[33vw] hidden  lg:flex lg:flex-col  ">
           <h3 className="poppins-regular lg:text-[1vw] tracking-wide lg:pl-[1vw] ">
             My Lists
           </h3>
@@ -106,7 +123,7 @@ function Navbar() {
             )}
           </div>
         </div>
-        <div className="lg:fixed z-20 lg:bottom-[1.5vw] lg:mt-[1vw] lg:w-[13vw] lg:h-[2.5vw] border   lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center  rounded  text-[#000000]   ">
+        <div className="lg:fixed  hidden lg:bottom-[1.5vw] lg:mt-[1vw] lg:w-[13vw] rounded-full lg:h-[2.5vw] h-[15vw] w-[15vw]  border    lg:flex lg:justify-start lg:p-[0.7vw]  lg:items-center  lg:rounded  text-[#000000]   ">
           <div className="lg:h-[1.8vw] lg:w-[1.8vw] flex justify-center items-center rounded-full border-[#000000] bg-[#e0e1dd] lg:border-[0.1vw] object-cover overflow-hidden">
             <FiUser className="text-[1.2vw]" />
           </div>
@@ -127,6 +144,9 @@ function Navbar() {
               )}
             </h4>
           </div>
+        </div>
+        <div className="lg:hidden h-[15vw] w-[20vw] flex justify-center items-center  ">
+          <HiMiniUserCircle className="text-[10vw] text-[#2b2d42]" />
         </div>
       </div>
     </>

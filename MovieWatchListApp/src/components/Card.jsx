@@ -28,42 +28,42 @@ function Card({ movie }) {
 
   return (
     <>
-      <div className="lg:min-h-[27vw] lg:w-[14vw] rounded shadow-xl lg:mb-[1vw] ">
-        <div className="lg:h-[18vw] lg:w-[100%] rounded relative ">
+      <div className="lg:min-h-[27vw] lg:w-[14vw] min-h-[50vw] w-[60vw] rounded shadow-xl lg:mb-[1vw] lg:pb-0 pb-[3vw] ">
+        <div className="lg:h-[18vw] lg:w-[100%]  h-[70vw] w-[100%] rounded relative ">
           <BsBookmarkPlusFill
             onClick={handleBookmark}
-            className={`absolute lg:-left-[0.3vw]  ${
+            className={`absolute lg:-left-[0.3vw] -left-[0.7vw]  ${
               bookmarkToggle === "#f34040" ? "text-[#f34040]" : "text-[#0d1b2]"
-            } lg:text-[2vw]`}
+            } lg:text-[2vw] text-[7vw]`}
           />
           <img
-            className="object-cover lg:h-[18vw] lg:w-[100%] rounded  "
+            className="object-cover lg:h-[18vw] lg:w-[100%] h-[70vw] w-[100%] rounded  "
             src={movie.Poster}
             alt=""
           />
         </div>
         <div className="relative ">
-          <div className=" flex justify-center items-center gap-2 absolute right-[0.5vw] top-[0.5vw] text-[1.1vw] ">
+          <div className=" flex justify-center items-center gap-2 absolute right-[0.5vw] top-[0.5vw] lg:text-[1.1vw] text-[3vw] ">
             {movie.Year < 2015 ? (
               <>
-                <FaSmile className="text-[1.5vw] text-[#fca311]" />
+                <FaSmile className="lg:text-[1.5vw] text-[4vw] text-[#fca311]" />
                 <h2>
                   68 <sup>/100</sup>
                 </h2>
               </>
             ) : (
               <>
-                <BiSolidCool className="text-[1.5vw] text-[#6a994e]" />
+                <BiSolidCool className="lg:text-[1.5vw] text-[4vw] text-[#6a994e]" />
                 <h2>
-                  80 <sup>/100</sup>{" "}
+                  80 <sup>/100</sup>
                 </h2>
               </>
             )}
           </div>
         </div>
-        <div className="lg:mt-[2.3vw] lg:ml-[1vw] lg:w-[12vw] lg:min-h-[3vw] flex flex-col flex-wrap overflow-hidden lg:mb-[1vw] ">
-          <h3 className=" w-full break-words  ">{movie.Title}</h3>
-          <h3>{movie.Year}</h3>
+        <div className="lg:mt-[2.3vw] mt-[4vw] lg:ml-[1vw] ml-[2vw] lg:w-[12vw] lg:min-h-[3vw] flex flex-col flex-wrap overflow-hidden lg:mb-[1vw] text-[3vw] lg:text-[1vw]  ">
+          <h3 className=" w-full break-words roboto-medium   ">{movie.Title}</h3>
+          <h3 className="roboto-medium">{movie.Year}</h3>
         </div>
       </div>
     </>

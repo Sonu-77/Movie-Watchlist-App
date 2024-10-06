@@ -158,7 +158,7 @@ function Navbar() {
           />
           {profileShow && (
             <div
-              className={`absolute w-[90vw] h-[40vh] bg-[#cdb4db] right-[5vw] top-[15vw] flex justify-center items-center text-[#efeae5] z-10 gap-[5vw] uppercase text-[5vw] rounded-md ${crossmenuIcon} `}
+              className={`absolute w-[90vw] h-[40vh] bg-[#0096c7] right-[5vw] top-[15vw] flex justify-center items-center text-[#efeae5] z-10 gap-[5vw] uppercase text-[5vw] rounded-md ${crossmenuIcon} `}
             >
               <div className="w-[50vw] min-h-[10vh] flex flex-col items-center  gap-[4vw]   ">
                 <NavLink style={activateBg} to={"/"} onClick={closemenu}>

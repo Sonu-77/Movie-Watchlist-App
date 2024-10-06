@@ -13,7 +13,7 @@ function MyListCard({ movie }) {
   };
 
   const handlecheck = () => {
-    setcheck((previous) => (previous === "#8b8686" ? "#7ef838" : "#8b8686"));
+    setcheck((previous) => (previous == "#8b8686" ? "#7ef838" : "#8b8686"));
   };
 
   return (
@@ -24,7 +24,8 @@ function MyListCard({ movie }) {
       >
         <div className="lg:h-[18vw] lg:w-[100%]  h-[70vw] w-[100%] rounded relative  ">
           <FaCheck
-            className={`absolute lg:right-[1vw] right-[3vw] lg:top-[1vw] top-[3vw]  text-[${check}] lg:text-[1.9vw] text-[6vw]`}
+            style={{ color: check }}
+            className={`absolute lg:right-[1vw] right-[3vw] lg:top-[1vw] top-[3vw]  lg:text-[1.9vw] text-[6vw]`}
             onClick={handlecheck}
           />
           <img

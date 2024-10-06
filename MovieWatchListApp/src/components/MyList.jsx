@@ -73,9 +73,9 @@ function MyList() {
               <MyListCard key={movie.imdbID} movie={movie} />
             ))
           ) : (
-            <div className="lg:h-[10vw] lg:w-[50vw] h-[20vw] w-[70vw] rounded-md bg-[#ef6974] text-[#ffffff] flex justify-center items-center lg:text-[2vw] text-[3vw] lg:mt-[10vw] lg:ml-[10vw]   ">
+            <div className="lg:h-[5vw] lg:w-[50vw] h-[20vw] w-[70vw] rounded-md bg-[#ef6974] text-[#ffffff] flex justify-center items-center lg:text-[1.5vw] text-[3vw] lg:mt-[1vw] lg:ml-[10vw]   ">
               <h2 className="tracking-wider">
-                Try Adding Movies to Watchlist....{" "}
+                Try Adding Movies to Watchlist....
               </h2>
             </div>
           )}

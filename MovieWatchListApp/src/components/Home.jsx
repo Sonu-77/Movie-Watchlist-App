@@ -19,9 +19,10 @@ function Home() {
       if (response.data.Response === "True") {
         setMovies(response.data.Search);
         setError(null);
+        setQuery("");
       } else {
-        console.log(response.data.Error);
         setError(response.data.Error);
+        setQuery("");
       }
     } catch (error) {
       console.log(error);
@@ -43,20 +44,19 @@ function Home() {
             </p>
 
             <div className="lg:text-[1vw] text-[2.7vw] tracking-wide lg:h-[2vw] lg:w-[70vw] h-[15vw] w-[80vw]  flex items-center flex-wrap lg:gap-0 gap-[0.5vw] lg:pb-[1vw] pb-[3vw]  ">
-
               <p>Just click the</p>
               <BsBookmarkPlusFill className="ml-[0.7vw] mr-[0.7vw] text-[#f34040] " />
               to add movie, the poster to see more detail and
-              <FaCheck className="lg:ml-[0.7vw] lg:mr-[0.7vw] ml-[0.7vw] mr-[0.7vw]  text-[#6a994e] " /> to
-              mark the movies as watched.
+              <FaCheck className="lg:ml-[0.7vw] lg:mr-[0.7vw] ml-[0.7vw] mr-[0.7vw]  text-[#6a994e] " />{" "}
+              to mark the movies as watched.
             </div>
           </div>
         </div>
-        <div className="lg:mt-[3vw] mt-[5vw]  rounded lg:h-[3vw] lg:w-[75vw] h-[7vw] w-[80vw] flex justify-between items-center gap-2  border ml-[4vw]  lg:ml-0  ">
+        <div className="lg:mt-[3vw] mt-[5vw]  rounded lg:h-[3vw] lg:w-[75vw] h-[10vw] w-[85vw] flex justify-between items-center gap-2  border ml-[3.5vw]  lg:ml-0  ">
           <div className="flex justify-center items-center lg:gap-[2vw] gap-[2vw]   ">
-            <IoIosSearch className="lg:text-[1.5vw]  text-[4vw] lg:ml-[1vw] ml-[1vw] " />
+            <IoIosSearch className="lg:text-[1.5vw]  text-[5vw] lg:ml-[1vw] ml-[1vw] " />
             <input
-              className="lg:h-[2vw] lg:w-[60vw] h-[5vw]  w-[60vw] lg:text-[1vw] text-[2.5vw]  outline-none text-[#14213d] "
+              className="lg:h-[2vw] lg:w-[60vw] h-[8vw]  w-[60vw] lg:text-[1vw] text-[3.5vw]  outline-none text-[#14213d] "
               type="text"
               value={query}
               placeholder="Search movie by title"
@@ -64,7 +64,7 @@ function Home() {
             />
           </div>
           <button
-            className="bg-[#f34040] lg:h-[3vw] lg:w-[7vw] h-[7vw] w-[15vw] lg:p-[0.5vw] lg:text-[1.3vw] rounded text-[#f4c1c2] hover:bg-[#e86464] hover:text-[#efeeee] p-[1vw] "
+            className="bg-[#f34040] lg:h-[3vw] lg:w-[7vw] h-[10vw] w-[15vw] lg:p-[0.5vw] p-[1vw] lg:text-[1.3vw] text-[3vw] rounded text-[#f4c1c2] hover:bg-[#e86464] hover:text-[#efeeee] "
             onClick={searchMovies}
           >
             Search
@@ -74,12 +74,11 @@ function Home() {
         <div className=" lg:mt-[2vw] mt-[6vw] flex lg:flex-row flex-col items-center  lg:flex-wrap lg:gap-[1.24vw] gap-[5vw] lg:w-[75vw] lg:min-h-[25vw] min-h-[70vw] w-[80vw] lg:ml-0 ml-[4vw] ">
           {error ? (
             <>
-              <div
-                className='roboto-bold lg:w-[100%] lg:h-[10vw] h-[20vw] w-[80vw]  bg-[#fbc4ab] lg:mt-[3vw] flex flex-col justify-center items-center text-[#335c67] rounded'
-              >
-                <p className="lg:text-[1.8vw] text-[3vw] uppercase ">{error} </p>
+              <div className="roboto-bold lg:w-[100%] lg:h-[10vw] h-[20vw] w-[80vw]  bg-[#fbc4ab] lg:mt-[3vw] flex flex-col justify-center items-center text-[#335c67] rounded">
                 <p className="lg:text-[1.8vw] text-[3vw] uppercase ">
-                  
+                  {error}{" "}
+                </p>
+                <p className="lg:text-[1.8vw] text-[3vw] uppercase ">
                   Please try searching the correct Movie ....
                 </p>
               </div>

@@ -56,15 +56,25 @@ function Navbar() {
   };
 
   const toogleMenu = () => {
-    if (menushow == false) {
-      return (
-        setprofileShow(true), setcrossMenuIcon("flex"), setMenuIcon("hidden")
-      );
-    } else {
-      return (
-        setprofileShow(false), setcrossMenuIcon("hidden"), setMenuIcon("flex")
-      );
-    }
+
+   if(userData.loggedIn===false){
+    navigate("/login")
+   }else{
+    setprofileShow(true)
+
+   }
+    
+
+
+    // if (menushow == false) {
+    //   return (
+    //     setprofileShow(true), setcrossMenuIcon("flex"), setMenuIcon("hidden")
+    //   );
+    // } else {
+    //   return (
+    //     setprofileShow(false), setcrossMenuIcon("hidden"), setMenuIcon("flex")
+    //   );
+    // }
   };
 
   return (
@@ -145,8 +155,18 @@ function Navbar() {
             </h4>
           </div>
         </div>
-        <div className="lg:hidden h-[15vw] w-[20vw] flex justify-center items-center  ">
-          <HiMiniUserCircle className="text-[10vw] text-[#2b2d42]" />
+        <div className="lg:hidden h-[15vw] w-[20vw] flex justify-center items-center  relative ">
+          <HiMiniUserCircle className="text-[10vw] text-[#2b2d42]"
+            onClick={toogleMenu}
+           />
+           {
+            profileShow && (
+              <div className="absolute w-[90vw] h-[70vh] bg-slate-400 right-[5vw] top-[15vw] ">
+
+              <IoClose className="absolute right-0 top-[5vw] text-[4vw] " />
+              </div>
+            )
+           }
         </div>
       </div>
     </>

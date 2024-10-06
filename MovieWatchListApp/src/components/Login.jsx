@@ -57,19 +57,19 @@ function Login() {
 
   return (
     <>
-      <div className="sm:w-full lg:p-[1vw]  lg:w-[40vw] lg:min-h-[20vw] border-[0.01vw]  shadow-lg flex flex-col justify-center items-center rounded  lg:mt-[10vw] sm:mt-[20vw] lg:ml-[30vw]    ">
-        <div className="  sm:mb-[5vw] lg:mb-[2vw]  ">
-          <h3 className="sm:text-[6vw] lg:text-[2vw] font-bold uppercase ">
+      <div className=" lg:p-[1vw] p-[4vw]  lg:w-[40vw] lg:min-h-[20vw] min-h-[60vw] w-[80vw]  border-[0.01vw]  shadow-lg flex flex-col justify-center items-center rounded  lg:mt-[10vw]  lg:ml-[30vw] mt-[30vw] ml-[10vw]    ">
+        <div className="  mb-[10vw] lg:mb-[2vw]  ">
+          <h3 className="text-[6vw] lg:text-[2vw] font-bold uppercase ">
             Login
           </h3>
         </div>
         <div>
           <form
-            className="sm:flex sm:w-[90vw] lg:w-[30vw]  sm:flex-col sm:justify-center sm:items-center sm:gap-[4vw] lg:gap-[1.5vw]"
+            className="flex w-[70vw] lg:w-[30vw] flex-col justify-center items-center gap-[4vw] lg:gap-[1.5vw]"
             onSubmit={handleSubmit}
           >
             <input
-              className="custom-shadow lg:h-[3.5vw]  sm:w-full sm:h-[12vw] sm:pl-[4vw] lg:pl-[1vw] placeholder:sm:text-[#000000] sm:placeholder:pl-[2vw] lg:placeholder:pl-[0.01vw]  outline-none"
+              className="custom-shadow lg:h-[3.5vw]  w-full h-[10vw] pl-[2vw] lg:pl-[1vw] placeholder:text-[#000000]  lg:placeholder:pl-[0.01vw]  outline-none placeholder:text-[4vw] lg:placeholder:text-[0.9vw]"
               required
               type="email"
               name="email"
@@ -83,7 +83,7 @@ function Login() {
               placeholder="Email"
             />
             <input
-              className="custom-shadow lg:h-[3.5vw]  sm:w-full sm:h-[12vw] sm:pl-[4vw] lg:pl-[1vw] placeholder:sm:text-[#000000] sm:placeholder:pl-[2vw] lg:placeholder:pl-[0.01vw]  outline-none"
+              className="custom-shadow lg:h-[3.5vw]  w-full h-[10vw] pl-[2vw] lg:pl-[1vw] placeholder:text-[#000000]  lg:placeholder:pl-[0.01vw]  outline-none placeholder:text-[4vw] lg:placeholder:text-[0.9vw]"
               required
               type="password"
               name="password"
@@ -98,18 +98,18 @@ function Login() {
             />
 
             <button
-              className="custom-shadow sm:w-[25vw]  lg:w-[6vw] lg:h-[2vw]  bg-[#f34040]  sm:text-[#ffff] sm:text-[3.4vw] lg:text-[1.1vw] rounded sm:h-[10vw] uppercase font-bold  outline-none"
+              className="custom-shadow w-[20vw]  lg:w-[6vw] lg:h-[2vw]  bg-[#f34040]  text-[#ffff] text-[3.4vw] lg:text-[1.1vw] rounded h-[8vw] uppercase font-bold  outline-none"
               type="submit"
             >
               Submit
             </button>
           </form>
         </div>
-        <div className="lg:w-[20vw] lg:h-[3vw] lg:mt-[2vw] flex justify-center items-center ">
-          <h3 className="roboto-medium lg:text-[1.2vw] tracking-wide  text-[#778da9] ">
+        <div className="lg:w-[20vw] lg:h-[3vw] h-[8vw] w-full lg:mt-[2vw] mt-[5vw]  flex justify-center items-center ">
+          <h3 className="roboto-medium lg:text-[1.2vw] text-[3vw] tracking-wide  text-[#778da9] ">
             Don't have account?
             <NavLink to="/register">
-              <span className="text-[#003049] lg:ml-[0.5vw] uppercase underline">
+              <span className="text-[#003049] text-[4vw] lg:text-[1.2vw] lg:ml-[0.5vw] ml-[3vw] uppercase underline">
                 Register
               </span>
             </NavLink>

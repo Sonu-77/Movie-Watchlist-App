@@ -13,8 +13,7 @@ import { IoClose } from "react-icons/io5";
 function Navbar() {
   const [menu, setMenu] = useState("hidden"); //logout login
   const [profileShow, setprofileShow] = useState(false); //mobile device profile show
-  const [crossmenuIcon, setcrossMenuIcon] = useState("hidden"); //to close profile
-  const [menuIcon, setMenuIcon] = useState("flex"); //when click to show the profile
+  const [crossmenuIcon, setcrossMenuIcon] = useState("flex"); //to close profile
 
   const { userData, setUserData, setlistofUsers } = useContext(UserContext);
 
@@ -56,34 +55,33 @@ function Navbar() {
   };
 
   const toogleMenu = () => {
+    setprofileShow((previous) => !previous);
+  };
 
-   if(userData.loggedIn===false){
-    navigate("/login")
-   }else{
-    setprofileShow(true)
+  const activateBg = ({ isActive }) => {
+    return {
+      backgroundColor: isActive && "#f34040",
+      padding: isActive && "0.3vw",
+      borderRadius: isActive && "2vw",
+      color: isActive && "#ffff",
+      paddingLeft: isActive && "0.5vw",
+      paddingRight: isActive && "0.5vw",
+    };
+  };
 
-   }
-    
-
-
-    // if (menushow == false) {
-    //   return (
-    //     setprofileShow(true), setcrossMenuIcon("flex"), setMenuIcon("hidden")
-    //   );
-    // } else {
-    //   return (
-    //     setprofileShow(false), setcrossMenuIcon("hidden"), setMenuIcon("flex")
-    //   );
-    // }
+  const closemenu = () => {
+    setprofileShow((previous) => !previous);
   };
 
   return (
     <>
       <div className="fixed z-30 bg-white  shadow-lg lg:shadow-none top-0 lg:h-[100vh] lg:w-[16vw] flex lg:flex-col  lg:items-center  border-r-[0.03vw] rounded-r-sm   ">
         <div className="lg:h-[3vw] lg:w-[12vw] h-[15vw] w-[80vw]   flex lg:justify-center justify-start items-center ">
-          <h1 className="lg:text-[2vw] text-[7vw] lg:ml-0 ml-[4vw]   tracking-wide noto-sans-font text-[#f34040] ">
-            WatchLists
-          </h1>
+          <NavLink to="/">
+            <h1 className="lg:text-[2vw] text-[7vw] lg:ml-0 ml-[4vw]   tracking-wide noto-sans-font text-[#f34040] ">
+              WatchLists
+            </h1>
+          </NavLink>
         </div>
         <div className="lg:w-[12vw] hidden lg:h-[1.5vw]  text-[#cbcaca] lg:border-[0.06vw]   lg:flex lg:mt-[0.7vw] lg:justify-center lg:items-center lg:gap-2 rounded ">
           <IoIosSearch className="lg:text-[1vw] " />
@@ -109,8 +107,6 @@ function Navbar() {
           <div className="lg:w-[13vw] lg:max-h-[30vw] overflow-y-auto">
             {userData.loggedIn === true ? (
               getBookmark.map((movie) => {
-                console.log(getBookmark);
-
                 return (
                   <NavLink key={movie.imdbID} to="mylist">
                     <div className="lg:w-[12vw] lg:h-[2.1vw] border lg:mt-[1vw]  lg:flex lg:justify-start lg:pl-[0.7vw] lg:ml-[0.5vw] lg:items-center lg:gap-2 rounded text-[#ffffff] ">
@@ -156,17 +152,34 @@ function Navbar() {
           </div>
         </div>
         <div className="lg:hidden h-[15vw] w-[20vw] flex justify-center items-center  relative ">
-          <HiMiniUserCircle className="text-[10vw] text-[#2b2d42]"
+          <HiMiniUserCircle
+            className="text-[10vw] text-[#2b2d42]"
             onClick={toogleMenu}
-           />
-           {
-            profileShow && (
-              <div className="absolute w-[90vw] h-[70vh] bg-slate-400 right-[5vw] top-[15vw] ">
+          />
+          {profileShow && (
+            <div
+              className={`absolute w-[90vw] h-[40vh] bg-[#cdb4db] right-[5vw] top-[15vw] flex justify-center items-center text-[#efeae5] z-10 gap-[5vw] uppercase text-[5vw] rounded-md ${crossmenuIcon} `}
+            >
+              <div className="w-[50vw] min-h-[10vh] flex flex-col items-center  gap-[4vw]   ">
+                <NavLink style={activateBg} to={"/"} onClick={closemenu}>
+                  <h2 className="p-[1vw]">Home</h2>
+                </NavLink>
+                <NavLink style={activateBg} to={"/mylist"} onClick={closemenu}>
+                  <h2 className="p-[1vw]">mylist</h2>
+                </NavLink>
 
-              <IoClose className="absolute right-0 top-[5vw] text-[4vw] " />
+                <div className="p-[1vw]" onClick={handleLogOut}>
+                  {userData.loggedIn === true ? (
+                    <h4 onClick={closemenu}>LogOut</h4>
+                  ) : (
+                    <NavLink to={"/login"} onClick={closemenu}>
+                      Login
+                    </NavLink>
+                  )}
+                </div>
               </div>
-            )
-           }
+            </div>
+          )}
         </div>
       </div>
     </>
